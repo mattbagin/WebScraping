@@ -1,0 +1,5 @@
+venv
+.vscode
+page_raw_html.html
+encrypted.txt
+__pycache__
