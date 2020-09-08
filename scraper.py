@@ -3,18 +3,13 @@ import smtplib
 import HashPassword as Hash
 
 
-def scrape_page(
-    url="https://requests.readthedocs.io/projects/requests-html/en/latest/",
-):
+def scrape_page(url,):
 
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
     }
     session = HTMLSession()
-    r = session.get(
-        "https://requests.readthedocs.io/projects/requests-html/en/latest/",
-        headers=headers,
-    )
+    r = session.get(url, headers=headers,)
     # page_html = r.text
 
     # print(r.text.encode("utf-8"))
@@ -30,7 +25,7 @@ def scrape_page(
         #     print(li.text.encode("utf-8"))
 
     hd_prods = {
-        "MicroPro Sienna 1 x 6 x 6'": "1000790632",
+        "MicroPro Sienna 1 x 6 x 6'": "micropro-sienna-1-x-6-x-6-treated-wood-fence-board/1000790632",
     }
 
     return
