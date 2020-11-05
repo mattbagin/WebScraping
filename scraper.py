@@ -1,48 +1,35 @@
-import requests
-from requests_html import HTML, HTMLSession
+from selenium import webdriver
+from requests_html import HTML
 import smtplib
 import HashPassword as Hash
 
 
 def scrape_page(url):
 
-    headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
-    }
+    browser = webdriver.Chrome(executable_path="chromedriver.exe")
 
-    cookies = requests.cookies.RequestsCookieJar()
-    cookies.set("store", "7115", domain=".homedepot.ca")
+    browser.get(url)
+    page_html = browser.page_source
 
-    session = HTMLSession()
+    # print(r.status_code)
 
-    session.cookies = cookies
-
-    r = session.get(url, headers=headers)
-    page_html = r.text
-
-    # print(r.text.encode("utf-8"))
-
-    for c in r.cookies:
-        print(c)
+    html = HTML(html=page_html)
 
     with open("page_raw_html.html", "rb+") as html_file:
 
-        # html_file.write(page_html.encode("utf-8"))
+        html_file.write(page_html.encode("utf-8"))
 
-        source = html_file.read()
-        html = HTML(html=source)
+    # print(html.find(".widget.product_short_description", first=True).text)
 
-        for a in html.find(".acl-display--flex"):
+    # for a in html.find(".widget.product_short_description"):
 
-            for b in a.find(".acl-mr--xx-small"):
+    # print(a.text)
 
-                for c in b.find(".ng-star-inserted"):
-                    print(c.text.encode("utf-8"))
+    for e in html.find(".discount_price"):
+        print(e.text)
 
-            for d in a.find(".acl-link--weak"):
-
-                for e in d.find(".ng-star-inserted"):
-                    print(e.text.encode("utf-8"))
+    for f in html.find(".regular_price"):
+        print(f.text)
 
     return
 
@@ -75,9 +62,7 @@ if __name__ == "__main__":
     user = "matthew.bagin@gmail.com"
     pw = Hash.decrypt(key, cipher_text).decode("utf-8")
 
-    scrape_page(
-        "https://www.homedepot.ca/product/micropro-sienna-1-x-6-x-6-treated-wood-fence-board/1000790632"
-    )
+    scrape_page("https://fitnessavenue.ca/zsr3/plate-bar-trees")
 
     # print(f"user name is {user}")
     # print(f"password is {pw}")

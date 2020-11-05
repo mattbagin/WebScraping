@@ -3,3 +3,4 @@ venv
 page_raw_html.html
 encrypted.txt
 __pycache__
+chromedriver.exe
