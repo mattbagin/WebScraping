@@ -44,7 +44,14 @@ def scrape_page(url):
                 stock = False
             in_stock.append(stock)
 
-    return in_stock[prod_names.index("AmStaff TT3102 Commercial Olympic/Standard Tree")]
+    return (
+        in_stock[prod_names.index("AmStaff TT3102 Commercial Olympic/Standard Tree")]
+        | in_stock[
+            prod_names.index(
+                "AmStaff A-Frame Olympic/Standard Plate Tree & Bar Holder TR051B"
+            )
+        ]
+    )
 
 
 def send_mail(user, pw):
@@ -57,7 +64,7 @@ def send_mail(user, pw):
 
     to = f"{user};cierrabutty@gmail.com"
     subject = "Plate Tree Stock"
-    body = f"The plate tree you want is in stock! \n\nLink: https://fitnessavenue.ca/amstaff-tt3102-commercial-olympic-standard-tree"
+    body = f"The plate tree you want is in stock! \n\nLink: https://fitnessavenue.ca/zsr3/plate-bar-trees"
 
     msg = f"Subject: {subject}\n\n{body}"
 
