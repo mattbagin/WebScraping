@@ -5,3 +5,4 @@ encrypted.txt
 __pycache__
 chromedriver.exe
 run_script.bat
+emails.txt

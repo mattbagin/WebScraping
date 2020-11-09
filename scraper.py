@@ -54,7 +54,7 @@ def scrape_page(url):
     )
 
 
-def send_mail(user, pw):
+def send_mail(user, pw, to_list):
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.ehlo()
     server.starttls()
@@ -62,9 +62,9 @@ def send_mail(user, pw):
 
     server.login(user, pw)
 
-    to = f"{user};cierrabutty@gmail.com"
+    to = f"{user};" + ";".join(to_list)
     subject = "Plate Tree Stock"
-    body = f"The plate tree you want is in stock! \n\nLink: https://fitnessavenue.ca/zsr3/plate-bar-trees"
+    body = f"One of the plate trees you want is in stock! \n\nLink: https://fitnessavenue.ca/zsr3/plate-bar-trees"
 
     msg = f"Subject: {subject}\n\n{body}"
 
@@ -79,11 +79,15 @@ if __name__ == "__main__":
         key = pw_file.readline().strip()
         cipher_text = pw_file.readline()
 
-    user = "matthew.bagin@gmail.com"
+    email_list = []
+    with open("emails.txt", "r") as email_list_file:
+        user = email_list_file.readline()
+        email_list = email_list_file.readlines()
+
     pw = Hash.decrypt(key, cipher_text).decode("utf-8")
 
     # print(f"user name is {user}")
-    # print(f"password is {pw}")
+    # print(";".join(email_list))
 
     if scrape_page("https://fitnessavenue.ca/zsr3/plate-bar-trees"):
-        send_mail(user, pw)
+        send_mail(user, pw, email_list)
