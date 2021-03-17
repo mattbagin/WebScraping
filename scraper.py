@@ -6,15 +6,16 @@ import HashPassword as Hash
 
 def scrape_page(url):
 
-    browser = webdriver.Chrome(executable_path="chromedriver.exe")
+    driver = webdriver.Chrome(executable_path="chromedriver.exe")
 
-    browser.get(url)
+    driver.get(url)
     page_html = browser.page_source
 
     # print(r.status_code)
 
     html = HTML(html=page_html)
 
+    driver.quit()
     # with open("page_raw_html.html", "rb+") as html_file:
 
     #     html_file.write(page_html.encode("utf-8"))
