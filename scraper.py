@@ -9,7 +9,7 @@ def scrape_page(url):
     driver = webdriver.Chrome(executable_path="chromedriver.exe")
 
     driver.get(url)
-    page_html = browser.page_source
+    page_html = driver.page_source
 
     # print(r.status_code)
 
